@@ -43,7 +43,9 @@ INSTALLED_APPS = [
     'users',
     'courses',
     'organization',
-    'operation'
+    'operation',
+    'xadmin',
+    'crispy_forms'
 ]
 
 AUTH_USER_MODEL = 'users.UserProfile'
@@ -129,5 +131,6 @@ USE_TZ = False
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.0/howto/static-files/
+# user: admin password admin123
 
 STATIC_URL = '/static/'
