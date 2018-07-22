@@ -45,7 +45,8 @@ INSTALLED_APPS = [
     'organization',
     'operation',
     'xadmin',
-    'crispy_forms'
+    'crispy_forms',
+    'captcha'
 ]
 
 AUTH_USER_MODEL = 'users.UserProfile'
@@ -140,3 +141,11 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = (
     os.path.join(BASE_DIR, "static"),
 )
+
+
+EMAIL_HOST = "smtp.163.com"
+EMAIL_PORT = 25
+EMAIL_HOST_USER = "mxonline.cn"
+EMAIL_HOST_PASSWORD = " "
+EMAIL_USE_TLS= True
+EMAIL_FROM = "mxonline.cn"
