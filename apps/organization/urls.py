@@ -1,4 +1,4 @@
-from django.urls import path, include, re_path
+from django.urls import path, re_path
 
 from .views import OrgView, AddUserAskView, OrgHomeView, OrgCourseView, OrgDescView, OrgTeacherView
 from .views import AddFavView
@@ -16,8 +16,5 @@ urlpatterns = [
 
     # 机构收藏
     path(r'^add_fav/', AddFavView.as_view(), name='add_fav'),
-
-
-
 
 ]
