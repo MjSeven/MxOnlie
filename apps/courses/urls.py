@@ -1,0 +1,12 @@
+from django.urls import path, re_path
+
+from .views import CourseListView
+
+
+app_name = "courses"
+
+urlpatterns = [
+    # 课程列表页
+    path('list/', CourseListView.as_view(), name='org_list'),
+
+]
