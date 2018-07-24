@@ -12,7 +12,7 @@ urlpatterns = [
     re_path(r'^home/(?P<org_id>\d+)/$', OrgHomeView.as_view(), name='org_home'),
     re_path(r'^course/(?P<org_id>\d+)/$', OrgCourseView.as_view(), name='org_home'),
     re_path(r'^desc/(?P<org_id>\d+)/$', OrgDescView.as_view(), name='org_desc'),
-    re_path(r'^teacher/(?P<org_id>\d+)/$', OrgTeacherView.as_view(), name='org_teacher'),
+    re_path(r'^org_teacher/(?P<org_id>\d+)/$', OrgTeacherView.as_view(), name='org_teacher'),
 
     # 机构收藏
     path('add_fav/', AddFavView.as_view(), name='add_fav'),

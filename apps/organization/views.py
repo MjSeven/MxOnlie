@@ -3,7 +3,7 @@ from django.shortcuts import render
 from django.views.generic import View
 from django.db.models import Q
 
-from pure_pagination import Paginator, EmptyPage, PageNotAnInteger
+from pure_pagination import Paginator, PageNotAnInteger
 
 from courses.models import Course
 from operation.models import UserFavorite
@@ -25,11 +25,13 @@ class OrgView(View):
         if city_id:
             all_orgs = all_orgs.filter(city_id=int(city_id))
 
-        # 机构搜索
+        # 全局机构搜索
         search_keywords = request.GET.get('keywords', '')
         if search_keywords:
             all_orgs = all_orgs.filter(
-                Q(name__icontains=search_keywords) | Q(desc__icontains=search_keywords))
+                Q(name__icontains=search_keywords) |
+                Q(desc__icontains=search_keywords)
+            )
 
         # 类别筛选
         category = request.GET.get('ct', '')
@@ -49,7 +51,6 @@ class OrgView(View):
             page = request.GET.get('page', 1)
         except PageNotAnInteger:
             page = 1
-        # Provide Paginator with the request object for complete querystring generation
 
         p = Paginator(all_orgs, 3, request=request)
 
@@ -226,7 +227,7 @@ class TeacherListView(View):
     def get(self, request):
         all_teachers = Teacher.objects.all()
 
-        # 讲师搜索
+        # 全局讲师搜索
         search_keywords = request.GET.get('keywords', '')
         if search_keywords:
             all_teachers = all_teachers.filter(
@@ -267,6 +268,7 @@ class TeacherDetailView(View):
         teacher.save()
         all_course = Course.objects.filter(teacher=teacher)
 
+        # 关于讲师，机构收藏功能
         has_teacher_faved = False
         if UserFavorite.objects.filter(user=request.user, fav_type=3, fav_id=teacher.id):
             has_teacher_faved = True
@@ -281,6 +283,5 @@ class TeacherDetailView(View):
             "sorted_teacher": sorted_teacher,
             "has_teacher_faved": has_teacher_faved,
             "has_org_faved": has_org_faved
-
         })
 
