@@ -7,6 +7,7 @@ from pure_pagination import Paginator, PageNotAnInteger
 
 from courses.models import Course, CourseResource
 from operation.models import UserFavorite, UserCourse, CourseComments
+from utils.mixin_utils import LoginRequiredView
 
 
 class CourseListView(View):
@@ -15,7 +16,6 @@ class CourseListView(View):
     """
     def get(self, request):
         all_courses = Course.objects.all().order_by('-add_time')
-
         hot_courses = Course.objects.all().order_by('-click_nums')[:3]
 
         # 课程搜索
@@ -87,7 +87,7 @@ class CourseDetailView(View):
         })
 
 
-class CourseInfoView(View):
+class CourseInfoView(LoginRequiredView, View):
     """
     课程章节信息
     """
@@ -105,7 +105,7 @@ class CourseInfoView(View):
         user_ids = [user_couser.user.id for user_couser in user_cousers]
         all_user_courses = UserCourse.objects.filter(user_id__in=user_ids)
         # 取出所有课程 id
-        course_ids = [user_couser.course.id for user_couser in user_cousers]
+        course_ids = [user_couser.course.id for user_couser in all_user_courses]
         # 取出学过该课程的用户的其他课程
         related_courses = Course.objects.filter(id__in=course_ids).order_by('-click_nums')[:5]
         all_resources = CourseResource.objects.filter(course=course)
@@ -116,7 +116,7 @@ class CourseInfoView(View):
         })
 
 
-class CommentsView(View):
+class CommentsView(LoginRequiredView, View):
     """
     课程评论
     """
