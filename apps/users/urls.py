@@ -1,6 +1,6 @@
 from django.urls import path, re_path
 
-from .views import UserInfoView, UploadImageView, UpdatePwdView
+from .views import UserInfoView, UploadImageView, UpdatePwdView, SendEmailCodeView, UpdateEmailView
 
 
 app_name = "users"
@@ -14,5 +14,11 @@ urlpatterns = [
 
     # 用户个人中心修改密码
     path('update/pwd/', UpdatePwdView.as_view(), name='update_pwd'),
+
+    # 发送邮箱验证码
+    path(r'sendemail_code/', SendEmailCodeView.as_view(), name='sendemail_code'),
+
+    # 修改邮箱
+    path(r'update_email/', UpdateEmailView.as_view(), name='update_email'),
 
 ]
