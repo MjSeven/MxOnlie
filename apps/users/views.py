@@ -219,6 +219,8 @@ class SendEmailCodeView(LoginRequiredView, View):
         if UserProfile.objects.filter(email=email):
             return HttpResponse('{"email": "邮箱已经存在"}', content_type='application/json')
         send_register_email(email, 'update_email')
+        # from .tasks import send_register_email
+        # send_register_email.delay(email, 'update_email')
 
         return HttpResponse('{"status": "success"}', content_type='application/json')
 

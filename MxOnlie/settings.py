@@ -154,3 +154,7 @@ EMAIL_HOST_USER = "mxonline.cn"
 EMAIL_HOST_PASSWORD = " "
 EMAIL_USE_TLS= True
 EMAIL_FROM = "mxonline.cn"
+
+###配置Broker
+BROKER_URL = 'redis://127.0.0.1:6379/1'
+BROKER_TRANSPORT = 'redis'
