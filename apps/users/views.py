@@ -1,8 +1,8 @@
 import json
 
-from django.shortcuts import render
-from django.http import HttpResponse
-from django.contrib.auth import authenticate, login
+from django.shortcuts import render, redirect, reverse
+from django.http import HttpResponse, HttpResponseRedirect
+from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.backends import ModelBackend
 from django.contrib.auth.hashers import make_password
 from django.db.models import Q
@@ -31,7 +31,9 @@ class CustomBackend(ModelBackend):
 
 
 class LoginView(View):
-
+    """
+    用户登入
+    """
     def get(self, request):
         return render(request, 'login.html')
 
@@ -49,6 +51,16 @@ class LoginView(View):
         else:
             return render(request, 'login.html', {'login_form': login_form})
         
+
+class LogoutView(View):
+    """
+    用户登出
+    """
+    def get(self, request):
+        logout(request)
+        # return HttpResponseRedirect('/')
+        return HttpResponseRedirect(reverse('index'))
+
 
 class RegisterView(View):
     def get(self, request):
