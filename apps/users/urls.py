@@ -25,7 +25,7 @@ urlpatterns = [
     path(r'mycourse/', MyCourseView.as_view(), name='mycourse'),
 
     # 我收藏的课程机构
-    path('^myfav/org/', MyFavOrgView.as_view(), name='myfav_org'),
+    path('myfav/org/', MyFavOrgView.as_view(), name='myfav_org'),
 
     # 我收藏的课程讲师
     path(r'myfav/teacher/', MyFavTeacherView.as_view(), name='myfav_teacher'),
