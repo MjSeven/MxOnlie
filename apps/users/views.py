@@ -1,3 +1,5 @@
+import json
+
 from django.shortcuts import render
 from django.http import HttpResponse
 from django.contrib.auth import authenticate, login
@@ -10,6 +12,7 @@ from django.views.generic.base import View
 from .models import UserProfile, EmailVerifyRecord
 from .forms import LoginForm, RegisterForm, ForgetForm, ModifyForm
 from utils.email_send import send_register_email
+from utils.mixin_utils import LoginRequiredView
 
 
 class CustomBackend(ModelBackend):
@@ -115,7 +118,6 @@ class ResetPwdView(View):
         return render(request, 'login.html')
 
 
-
 class ModifyPwdView(View):
     """
     修改用户密码
@@ -135,5 +137,21 @@ class ModifyPwdView(View):
         else:
             email = request.POST.get('email', '')
             return render(request, 'password_reset.html', {'email': email, 'modify_form': modify_form})
+
+
+class UserInfoView(LoginRequiredView, View):
+    """
+    用户个人信息
+    """
+    def get(self, request):
+        return render(request, 'usercenter-info.html')
+
+    def post(self, request):
+        user_info_form = LoginRequiredView(request.POST, instance=request.user)
+        if user_info_form.is_valid():
+            user_info_form.save()
+            return HttpResponse('{"status": "success"}', content_type='application/json')
+        else:
+            return HttpResponse(json.dumps(user_info_form.errors), content_type='application/json')
 
 

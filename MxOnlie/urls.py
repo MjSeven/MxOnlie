@@ -40,6 +40,10 @@ urlpatterns = [
 
     # 课程相关 url 配置
     path('course/', include('courses.urls', namespace='course')),
+
+    # 用户相关 url 配置
+    path(r'users/', include('users.urls', namespace='users')),
+
     re_path(r'^media/(?P<path>.*)', serve, {"document_root": MEDIA_ROOT })
 
 ]
