@@ -10,7 +10,7 @@ class UserProfile(AbstractUser):
         ("female", "女")
     )
     nick_name = models.CharField(max_length=50, verbose_name="昵称", default="")
-    birthday = models.DateField(verbose_name=u"生日", null=True, blank=True)
+    birthday = models.DateField(verbose_name="生日", null=True, blank=True)
     # 性别 只能男或女，默认女
     gender = models.CharField(
         max_length=6,

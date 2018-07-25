@@ -10,7 +10,7 @@ from django.views.generic.base import View
 
 
 from .models import UserProfile, EmailVerifyRecord
-from .forms import LoginForm, RegisterForm, ForgetForm, ModifyForm, UploadImageForm
+from .forms import LoginForm, RegisterForm, ForgetForm, ModifyForm, UploadImageForm, UserInfoForm
 from utils.email_send import send_register_email
 from utils.mixin_utils import LoginRequiredView
 
@@ -147,7 +147,7 @@ class UserInfoView(LoginRequiredView, View):
         return render(request, 'usercenter-info.html')
 
     def post(self, request):
-        user_info_form = LoginRequiredView(request.POST, instance=request.user)
+        user_info_form = UserInfoForm(request.POST, instance=request.user)
         if user_info_form.is_valid():
             user_info_form.save()
             return HttpResponse('{"status": "success"}', content_type='application/json')
