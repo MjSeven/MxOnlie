@@ -73,3 +73,7 @@ class Teacher(models.Model):
     def __str__(self):
         return "[{0}]的教师: {1}".format(self.org, self.name)
 
+    def get_course_nums(self):
+        # 获得讲师的课程数
+        return self.course_set.count().all()
+
